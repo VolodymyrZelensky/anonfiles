@@ -12,35 +12,57 @@ anonfiles::anonfiles(QWidget *parent): QMainWindow(parent), ui(new Ui::anonfiles
 	ui->Fname->setFont(QFont("Titillium Web", 9, QFont::Normal));
 	ui->file_path->setFont(QFont("Titillium Web", 9, QFont::Normal));
 	ui->upload_progress->setFont(QFont("Titillium Web", 9, QFont::Normal));
-	if(!QFile::exists(QDir::homePath() + "/AppData/Local/Anonfiles_Database.db")){
-		QFile::copy(":/database/Database.db", QDir::homePath() + "/AppData/Local/anonfiles.db");
-		QFile(QDir::homePath() + "/AppData/Local/anonfiles.db").setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
+	if(!QDir(QDir::homePath() + "/.local/share/anonfiles").exists()){
+		QDir qDir;
+		qDir.mkdir(QDir::homePath() + "/.local/share/anonfiles");
 	}
-	db.dbstate = db.Connect(QDir::homePath() + "/AppData/Local/anonfiles.db");
+	if(!QFile::exists(QDir::homePath() + "/.local/share/anonfiles/LICENSE")){
+		QFile::copy(":/files/gbl.txt", QDir::homePath() + "/.local/share/anonfiles/LICENSE");
+		QFile(QDir::homePath() + "/.local/share/anonfiles/LICENSE").setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
+	}
+	if(!QFile::exists(QDir::homePath() + "/.local/share/anonfiles/Database.db")){
+		QFile::copy(":/database/Database.db", QDir::homePath() + "/.local/share/anonfiles/Database.db");
+		QFile(QDir::homePath() + "/.local/share/anonfiles/Database.db").setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
+	}
+	db.dbstate = db.Connect(QDir::homePath() + "/.local/share/anonfiles/Database.db");
 }
 
 anonfiles::~anonfiles(){delete ui;}
-void anonfiles::on_btn_twitter_clicked(){
-	QDesktopServices::openUrl(QUrl("https://twitter.com/anasybal"));}
+void anonfiles::on_btn_twitter_clicked()
+{
+	QDesktopServices::openUrl(QUrl("https://twitter.com/anasybal"));
+}
 bool anonfiles::AreYouOnline(){
-	if(QProcess::execute("ping -n 1 www.google.com") == 0) return true;
-	else return false;}
+    QTcpSocket* sock = new QTcpSocket(this);
+	sock->connectToHost("google.com", 80);
+    bool connected = sock->waitForConnected(30000);//ms
+    if (!connected){
+        sock->abort();
+        return false;
+    }
+    sock->close();
+    return true;
+}
 void anonfiles::on_btn_copy_fd_clicked(){
 	ui->Flink->selectAll();
 	ui->Flink->copy();
-	ui->Flink->deselect();}
+	ui->Flink->deselect();
+}
 void anonfiles::on_btn_copy_sd_clicked(){
 	ui->Slink->selectAll();
 	ui->Slink->copy();
-	ui->Slink->deselect();}
+	ui->Slink->deselect();
+}
 void anonfiles::on_btn_copy_fn_clicked(){
 	ui->Fname->selectAll();
 	ui->Fname->copy();
-	ui->Fname->deselect();}
+	ui->Fname->deselect();
+}
 void anonfiles::on_btn_copy_fi_clicked(){
 	ui->FID->selectAll();
 	ui->FID->copy();
-	ui->FID->deselect();}
+	ui->FID->deselect();
+}
 void anonfiles::on_btn_select_clicked()
 {
 	QString FilePath = QFileDialog::getOpenFileName(this,tr("Select File"), QDir::homePath());
