@@ -23,8 +23,11 @@ FORMS += \
 RESOURCES += \
     anonfilesrc.qrc \
 
-RC_ICONS += \
-    assets/logo-24x24.ico
+QMAKE_LFLAGS += -no-pie
+
+#RC_ICONS += \
+#    assets/logo-24x24.ico
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
