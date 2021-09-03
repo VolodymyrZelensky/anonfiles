@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://anasybal.github.io/anonfiles/logo.png">
+    <img src="https://lil-nickel.github.io/anonfiles/logo.png">
 </p>
 
 <h1 align="center">Anonymous File Upload - Desktop Application</h1>
