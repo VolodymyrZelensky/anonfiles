@@ -1,10 +1,6 @@
-<p align="center">
-    <img src="https://lil-nickel.github.io/anonfiles/logo.png">
-</p>
 
 <h1 align="center">Anonymous File Upload - Desktop Application</h1>
 <p align="center"> ( new with GitHub Theme ) <br>
-  <a href="https://lil-nickel.github.io/anonfiles" target="_blank">Example</a>
 </p>
 
 <h1 align="center">Support</h1>
