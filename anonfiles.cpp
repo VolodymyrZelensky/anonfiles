@@ -16,10 +16,6 @@ anonfiles::anonfiles(QWidget *parent): QMainWindow(parent), ui(new Ui::anonfiles
 		QDir qDir;
 		qDir.mkdir(QDir::homePath() + "/.local/share/anonfiles");
 	}
-	if(!QFile::exists(QDir::homePath() + "/.local/share/anonfiles/LICENSE")){
-		QFile::copy(":/files/gbl.txt", QDir::homePath() + "/.local/share/anonfiles/LICENSE");
-		QFile(QDir::homePath() + "/.local/share/anonfiles/LICENSE").setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
-	}
 	if(!QFile::exists(QDir::homePath() + "/.local/share/anonfiles/Database.db")){
 		QFile::copy(":/database/Database.db", QDir::homePath() + "/.local/share/anonfiles/Database.db");
 		QFile(QDir::homePath() + "/.local/share/anonfiles/Database.db").setPermissions(QFileDevice::ReadOwner | QFileDevice::WriteOwner);
@@ -30,7 +26,7 @@ anonfiles::anonfiles(QWidget *parent): QMainWindow(parent), ui(new Ui::anonfiles
 anonfiles::~anonfiles(){delete ui;}
 void anonfiles::on_btn_twitter_clicked()
 {
-	QDesktopServices::openUrl(QUrl("https://twitter.com/anasybal"));
+	QDesktopServices::openUrl(QUrl("https://twitter.com/_Lil_Nickel"));
 }
 bool anonfiles::AreYouOnline(){
     QTcpSocket* sock = new QTcpSocket(this);
